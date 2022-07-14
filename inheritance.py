@@ -12,3 +12,8 @@ class arthropod(animal): #created a class aarthropod, which inherits attributes 
     mode_of_transportation: ' ' #many arthropods can fly or have many legs
     body_segments: 2 #arthropods can have one to many body segments
 
+
+
+
+if __name__ == "__main__":
+    
