@@ -98,8 +98,8 @@ class ParentWindow(Frame):
        # pastDay = datetime(
        # difference = datetime.utcnow() - pastDate
 
-        now = datetime.datetime.time()
-        yesterday = now - datetime.timedelta(1)
+        now = datetime.time()
+        yesterday = (now - datetime.timedelta(hours=24)).time
         
         for i in source_files:
             if(datetime.now().time() > datetime.yesterday()):
