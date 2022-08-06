@@ -3,9 +3,7 @@ from tkinter import *
 import tkinter.filedialog
 import os
 import shutil
-import datetime
-from datetime import timedelta
-
+from datetime import datetime, timedelta
 
     #3
 
@@ -95,33 +93,29 @@ class ParentWindow(Frame):
         #uses os.path.getmtime to get modification
         modification_time = os.path.getmtime(source)
         #runs through each file in the source directory
-       # pastDay = datetime(
-       # difference = datetime.utcnow() - pastDate
+        mod_time = modification_time - timedelta(hours=24)
+        
+       #### pastDay = datetime(
+       #### difference = datetime.utcnow() - pastDate
 
-        now = datetime.time()
-        yesterday = (now - datetime.timedelta(hours=24)).time
+        #yesterday is assigned to datetime.time() minus datetime.timedelta for 24 hours
+        #unsure if syntax is correct as it is where the error occurs
+        yesterday = (datetime.now() - timedelta(hours=24))
+        print(yesterday)
+        now=datetime.now()
+        yesterday = (now - timedelta(hours=24))
+        oneDay = now > yesterday
         
         for i in source_files:
-            if(datetime.now().time() > datetime.yesterday()):
+            if modification_time < mod_time: 
                 shutil.move(source + '/' + i, destination)
                 print(i + " has been sitting for 24 hours. It has been successfully transferred.")
             else:
+                oneday == False
                 print("It has not been 24 hours yet. Files will be kept in place.")
                 break
-            
 
-                
-            #moves each file from the source to the destination
-            #shutil.move(source + '/' + i, destination)
-            #print(i + " was successfully transferred.")
             
-            #if
-             #   difference.days == 0:
-              #  print("No files have been added at this time")
-            
-            # (datetime.now() - pastDate).days > 1:
-             #   (i + " has been sitting for 24 hours. It was successfully transferred")
-
 #####
 
 
