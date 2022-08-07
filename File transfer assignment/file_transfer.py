@@ -4,6 +4,7 @@ import tkinter.filedialog
 import os
 import shutil
 from datetime import datetime, timedelta
+import time
 
     #3
 
@@ -91,28 +92,35 @@ class ParentWindow(Frame):
         source_files = os.listdir(source)
         
         #uses os.path.getmtime to get modification
-        modification_time = os.path.getmtime(source)
-        #runs through each file in the source directory
-        mod_time = modification_time - timedelta(hours=24)
-        
-       #### pastDay = datetime(
-       #### difference = datetime.utcnow() - pastDate
+        #modification_time = os.path.getmtime(source + '/' + i)
 
-        #yesterday is assigned to datetime.time() minus datetime.timedelta for 24 hours
-        #unsure if syntax is correct as it is where the error occurs
-        yesterday = (datetime.now() - timedelta(hours=24))
-        print(yesterday)
-        now=datetime.now()
-        yesterday = (now - timedelta(hours=24))
-        oneDay = now > yesterday
+
+
+        #Convert seconds to readable time stamp
+        #mod_time = time.localtime(modification_time)
+        #yesterday is equal to the time it is now minus 24 hours
         
+
+        #variable now is equal to the function datetime.now() whenever it is called
+        now = datetime.now()
+
+
+        
+        #for i in the source directory of folder source
         for i in source_files:
-            if modification_time < mod_time: 
+            modification_time = os.path.getmtime(source + '/' + i)
+            mod_time = modification_time
+            yesterday = (time.time() - 60 * 60 * 24)
+            #if the time from variable yesterday IS the same as the last modification time
+            if (yesterday >= mod_time) == True:
+                
+                #move the files from one folder to another
                 shutil.move(source + '/' + i, destination)
                 print(i + " has been sitting for 24 hours. It has been successfully transferred.")
+            #if it is NOT the same
             else:
-                oneday == False
-                print("It has not been 24 hours yet. Files will be kept in place.")
+                #do nothing and print out the following statement
+                print(i + "has not been 24 hours yet. Files will be kept in place.")
                 break
 
             
