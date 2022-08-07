@@ -90,30 +90,17 @@ class ParentWindow(Frame):
         
         #gets a list of files in the source directory
         source_files = os.listdir(source)
-        
-        #uses os.path.getmtime to get modification
-        #modification_time = os.path.getmtime(source + '/' + i)
-
-
-
-        #Convert seconds to readable time stamp
-        #mod_time = time.localtime(modification_time)
-        #yesterday is equal to the time it is now minus 24 hours
-        
-
-        #variable now is equal to the function datetime.now() whenever it is called
-        now = datetime.now()
 
 
         
         #for i in the source directory of folder source
         for i in source_files:
-            modification_time = os.path.getmtime(source + '/' + i)
-            mod_time = modification_time
+            #getmtime() returns a float
+            mod_time = os.path.getmtime(source + '/' + i)
+            #time.time() turns yesterday variable into a float
             yesterday = (time.time() - 60 * 60 * 24)
-            #if the time from variable yesterday IS the same as the last modification time
+            #if the time from variable yesterday IS the same as or is greaterto the last modification time
             if (yesterday >= mod_time) == True:
-                
                 #move the files from one folder to another
                 shutil.move(source + '/' + i, destination)
                 print(i + " has been sitting for 24 hours. It has been successfully transferred.")
