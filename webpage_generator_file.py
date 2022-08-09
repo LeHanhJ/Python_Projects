@@ -9,6 +9,16 @@ class ParentWindow(Frame):
         #title of window
         self.master.title("Web Page Generator")
         #creates button to open up an HTML page by using command
+
+        #creates a label for the text for the user
+        self.labelText = Label(text="Please enter your custom text here, or press the Default HTML Page")
+        self.labelText.grid(row=0, column=0, padx=(20,10), pady=(10,10))
+
+        #creates an entrypoint for user to type in for custom text
+        self.textEntry = Entry(self.master)
+        self.textEntry.grid(row=1, column=0, padx=(10,10), pady=(10,10), columnspan=3, sticky=W+E)
+        
+        #makes button for Default HTML Page
         self.btn = Button(self.master, text = "Default HTML Page", width=30, height=2, command=self.defaultHTML)
         #aligns button in a grid
         self.btn.grid(row=2, column=1, padx=(10,10),pady=(10,10),sticky=SE)
@@ -17,6 +27,8 @@ class ParentWindow(Frame):
         self.create_btn = Button(self.master, text="Submit Custom Text", width=30, height=2, command=self.create_txt)
         #aligns button in grid and adds padding
         self.create_btn.grid(row=2, column=2, padx=(10,10), pady=(10,10),sticky=SE)
+
+
 
     def defaultHTML(self):
         #sets variable htmlText
@@ -45,16 +57,9 @@ class ParentWindow(Frame):
         
     def create_txt(self):
 
-        # self.create= Entry makes an entry point for users to enter their text
-        self.create = Entry(width=100)
+        #enterCustom gets the textEntry variable from above
+        enterCustom = self.textEntry.get()
 
-        #this opens a dialog box for users to input any text they would like
-        enterCustom = tk.simpledialog.askstring("Enter your custom text for your webpage", "Please enter your custom text here, or press Cancel and the Default HTML Page")
-        #this will clear content that is inserted into the Entry widget
-        self.create.delete(0,END)
-        #.insert method will insert the enterCustom to the create entry
-        self.create.insert(0,enterCustom)
-        
         #sets variable htmlFile to open an index.html file and opening the file for writing, truncating the file first
         createWebsite = open("index.html", "w")
         #assigns variable htmlContent to write up elements of an html page, while also inserting the custom text inputted by users between elements
@@ -67,6 +72,7 @@ class ParentWindow(Frame):
         createWebsite.close()
         #open index.html in a new tab in a webbrowser
         webbrowser.open_new_tab("index.html")
+        
 
 if __name__ == "__main__":
     root = tk.Tk()
